@@ -103,6 +103,7 @@
 </body>
 
 <script type="text/javascript">
+    // Get data
     $(document).ready(function() {
         $.ajaxSetup({
             headers: {
@@ -110,11 +111,10 @@
             }
         });
 
-        // Get data
         $('#datatable-crud').DataTable({
             processing: true,
             serverSide: true,
-            ajax: "{{ route('index-product') }}",
+            url: '/',
             columns: [{
                     data: 'id',
                     name: 'id'
@@ -147,10 +147,10 @@
         });
     });
 
+    // Get data berdasarkan id
     function loadData(id) {
-        // Menggunakan AJAX untuk mengambil data dari Laravel backend
         $.ajax({
-            url: '/get-data/' + id, // Gantilah dengan URL yang sesuai di Laravel
+            url: '/get-data/' + id,
             type: 'GET',
             success: function(response) {
                 // Mengisi formulir dengan data yang diterima
@@ -165,8 +165,9 @@
         });
     }
 
+
+    // Update data
     function updateData() {
-        // Menggunakan AJAX untuk mengirim data ke Laravel backend
         $.ajax({
             url: '/update-data', // Gantilah dengan URL yang sesuai di Laravel
             type: 'POST',
@@ -187,10 +188,9 @@
     // Destroy data
     function deleteData(id) {
         if (confirm("Are you sure delete this data ?") == true) {
-            // ajax
             $.ajax({
                 type: "POST",
-                url: "{{ route('destroy-product') }}",
+                url: '/destroy',
                 data: {
                     id: id
                 },
